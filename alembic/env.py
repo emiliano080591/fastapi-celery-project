@@ -5,6 +5,10 @@ from sqlalchemy import pool
 
 from alembic import context
 
+from project.app import create_app
+from project.config import settings
+from project.database import Base
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -18,7 +22,12 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+config.set_main_option("sqlalchemy.url", str(settings.DATABASE_URL))  # new
+
+fastapi_app = create_app()  # new
+
+target_metadata = Base.metadata  # new
+
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

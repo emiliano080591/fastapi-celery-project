@@ -13,3 +13,9 @@ celery -A main.celery flower --port=5555
 ```shell
 alembic init alembic
 ```
+
+### Hacer migración
+```shell
+alembic revision --autogenerate
+alembic upgrade head
+```
